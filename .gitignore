@@ -1,0 +1,56 @@
+# Arquivo .gitignore para projetos .NET
+# Este arquivo lista os arquivos e pastas que o Git deve ignorar.
+
+# 1. Dependências e Ferramentas
+# Ignora pacotes NuGet restaurados localmente.
+[Pp]ackages/
+*.nupkg
+
+# 2. Arquivos de Build e Saída de Compilação
+# Pastas geradas durante a compilação. Elas contêm o código compilado (DLLs, EXEs).
+[Bb]in/
+[Oo]bj/
+
+# 3. Arquivos de Configuração do Usuário e da IDE
+# Ignora arquivos que guardam configurações específicas do seu ambiente de desenvolvimento.
+# Isso evita conflitos com outros desenvolvedores.
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+ClientBin/
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# 4. Arquivos de Ambiente e Segredos
+# NUNCA envie arquivos com senhas ou chaves de API!
+# O appsettings.Development.json geralmente contém a string de conexão do seu banco local.
+appsettings.Development.json
+
+# O arquivo de segredos do .NET (User Secrets)
+secrets.json
+
+# 5. Logs e Arquivos de Teste
+# Ignora arquivos de log e relatórios de cobertura de testes.
+*.log
+*.log.*
+TestResult/
+coverage.json
+*.CodeCoverage/
+
+# 6. Arquivos do Sistema Operacional
+# Ignora arquivos de sistema do macOS, Windows e Linux.
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# 7. Arquivos do Entity Framework Core
+# Arquivos de cache de design-time do EF Core
+*.efbundle

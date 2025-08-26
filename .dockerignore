@@ -1,0 +1,47 @@
+# Ignora os diretórios de saída de compilação.
+# Eles são gerados DENTRO do container durante o build.
+**/bin/
+**/obj/
+
+# Ignora arquivos e pastas de controle de versão.
+.git
+.gitignore
+.gitattributes
+
+# Ignora arquivos do Docker. Eles não são necessários dentro da imagem.
+Dockerfile
+.dockerignore
+docker-compose*
+
+# Ignora arquivos de configuração de usuário e da IDE.
+# Eles são específicos do ambiente de desenvolvimento local.
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignora dependências de pacotes locais.
+# O comando 'dotnet restore' vai baixar as dependências dentro do container.
+**/[Pp]ackages/
+
+# Ignora arquivos de log e resultados de teste.
+**/TestResult/
+*.log
+
+# Ignora arquivos do sistema operacional.
+.DS_Store
+Thumbs.db
+
+# Ignora segredos e configurações de desenvolvimento locais.
+# A configuração para o ambiente do container deve ser passada por variáveis de ambiente.
+secrets.json
+appsettings.Development.json
+
+# Ignora diretórios criados para armazenamento local durante o desenvolvimento.
+storage/
+
+# Ignora a documentação que não é necessária para a execução.
+README.md
