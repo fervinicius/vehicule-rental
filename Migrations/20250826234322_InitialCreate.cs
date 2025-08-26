@@ -12,7 +12,7 @@ namespace rental_challenge.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Motorcycles",
+                name: "motorcycles",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -23,12 +23,24 @@ namespace rental_challenge.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Motorcycles", x => x.Id);
+                    table.PrimaryKey("PK_motorcycles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "rentals",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    MotorcycleId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_rentals", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Motorcycles_LicensePlate",
-                table: "Motorcycles",
+                name: "IX_motorcycles_LicensePlate",
+                table: "motorcycles",
                 column: "LicensePlate",
                 unique: true);
         }
@@ -37,7 +49,10 @@ namespace rental_challenge.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Motorcycles");
+                name: "motorcycles");
+
+            migrationBuilder.DropTable(
+                name: "rentals");
         }
     }
 }

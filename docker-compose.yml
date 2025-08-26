@@ -14,7 +14,7 @@ services:
       ConnectionStrings__DefaultConnection: "Host=db;Database=rental_db;Username=rental_username;Password=rental_password"
   db:
     container_name: db
-    image: postgres:12
+    image: postgres
     environment:
       - POSTGRES_USER=rental_username
       - POSTGRES_PASSWORD=rental_password

@@ -10,6 +10,7 @@ namespace rental_challenge.Data
     }
 
     public DbSet<Motorcycle> Motorcycles { get; set; }
+    public DbSet<Rental> Rentals { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

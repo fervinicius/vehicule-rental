@@ -12,7 +12,7 @@ using rental_challenge.Data;
 namespace rental_challenge.Migrations
 {
     [DbContext(typeof(RentalDbContext))]
-    [Migration("20250825233409_InitialCreate")]
+    [Migration("20250826234322_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -52,7 +52,21 @@ namespace rental_challenge.Migrations
                     b.HasIndex("LicensePlate")
                         .IsUnique();
 
-                    b.ToTable("Motorcycles");
+                    b.ToTable("motorcycles");
+                });
+
+            modelBuilder.Entity("rental_challenge.Models.Rental", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MotorcycleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("rentals");
                 });
 #pragma warning restore 612, 618
         }

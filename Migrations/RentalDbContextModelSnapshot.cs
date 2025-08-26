@@ -49,7 +49,21 @@ namespace rental_challenge.Migrations
                     b.HasIndex("LicensePlate")
                         .IsUnique();
 
-                    b.ToTable("Motorcycles");
+                    b.ToTable("motorcycles");
+                });
+
+            modelBuilder.Entity("rental_challenge.Models.Rental", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MotorcycleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("rentals");
                 });
 #pragma warning restore 612, 618
         }

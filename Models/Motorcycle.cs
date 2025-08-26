@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace rental_challenge.Models
 {
-  [Table("Motorcycles")]
+  [Table("motorcycles")]
   public class Motorcycle
   {
     [Key]

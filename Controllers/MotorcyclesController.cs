@@ -20,7 +20,6 @@ namespace rental_challenge.Controllers
     [HttpPost]
     public async Task<IActionResult> CreateMotorcycle([FromBody] CreateMotorcycleDto motorcycleDto)
     {
-      // Verifica se já existe uma moto com a mesma placa
       var licensePlateExists = await _context.Motorcycles.AnyAsync(m => m.LicensePlate == motorcycleDto.LicensePlate);
       if (licensePlateExists)
       {
@@ -37,8 +36,71 @@ namespace rental_challenge.Controllers
       _context.Motorcycles.Add(motorcycle);
       await _context.SaveChangesAsync();
 
-      // Retorna o objeto criado com o status 201 Created
       return CreatedAtAction(nameof(CreateMotorcycle), new { id = motorcycle.Id }, motorcycle);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetMotorcycles([FromQuery] string? LicensePlate)
+    {
+      var query = _context.Motorcycles.AsQueryable();
+
+      if (!string.IsNullOrEmpty(LicensePlate))
+      {
+        query = query.Where(m => m.LicensePlate == LicensePlate);
+      }
+
+      var motorcycles = await query.ToListAsync();
+
+      return Ok(motorcycles);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateLicensePlate(Guid id, [FromBody] UpdateLicensePlateDto dto)
+    {
+      var motorcycle = await _context.Motorcycles.FindAsync(id);
+
+      if (motorcycle is null)
+      {
+        return NotFound("Motorcycle not found.");
+      }
+
+      var licensePlateExists = await _context.Motorcycles
+          .AnyAsync(m => m.LicensePlate == dto.NewLicensePlate && m.Id != id);
+
+      if (licensePlateExists)
+      {
+        return Conflict("License plate already in use by another motorcycle.");
+      }
+
+      motorcycle.LicensePlate = dto.NewLicensePlate;
+
+      await _context.SaveChangesAsync();
+
+      return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteMotorcycle(Guid id)
+    {
+      var motorcycle = await _context.Motorcycles.FindAsync(id);
+
+      if (motorcycle is null)
+      {
+        return NotFound("Motorcycle not found.");
+      }
+
+      var hasRentals = await _context.Rentals.AnyAsync(r => r.MotorcycleId == id);
+
+      if (hasRentals)
+      {
+        return Conflict("Cannot delete a motorcycle that has associated rentals.");
+      }
+
+      _context.Motorcycles.Remove(motorcycle);
+
+      await _context.SaveChangesAsync();
+
+      return NoContent();
     }
   }
 }
