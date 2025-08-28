@@ -2,6 +2,8 @@
 
 This project is a RESTfUL API developed in .NET 9 and C# to manage vehicule rentals for delivery drivers. The application allows for the registration of motorcycles, the registration of drivers, the rental process, and the return of motorcycles with cost calculation.
 
+<img src="./assets/api-rental.png">
+
 ## Prerequisites
 
 To run this project, you will need following tools installed:
@@ -48,6 +50,28 @@ The applicaiton follows a simple, layered RESTful API architecture:
 
 The environment is fully containerized with Docker, ensuring portability and a streamlined setup process.
 
+## API Endpoints
+
+The following is a list of the main endpoints available in the application:
+
+### Motorcycles
+- `POST /motorcycles` - Registers a new motorcycle.
+- `GET /motorcycles` - Lists all motorcycles.
+- `GET /motorcycles?licensePlate={plate}` - Filters motorcycles by license plate.
+- `PUT /motorcycles/{id}` - Updates a motorcycle's license plate.
+- `DELETE /motorcycles/{id}` - Deletes a motorcycle.
+
+### Drivers
+- `POST /drivers` - Registers a new driver.
+- `GET /drivers` - Lists all drivers.
+- `GET /drivers/{id}` - Gets a driver by ID.
+- `POST /drivers/{id}/cnh-image` - Uploads the driver's license image for a driver.
+
+### Rentals
+- `POST /rentals` - Creates a new rental.
+- `POST /rentals/{id}/return` - Finalizes a rental and calculates the total cost.
+- `GET /rentals/plans` - Lists the available rental plans.
+
 ## How to Run the Project
 
 1.  **Clone the repository:**
@@ -88,25 +112,3 @@ To manage database migrations, use the following commands in the terminal from t
     ```bash
     dotnet ef migrations remove
     ```
-
-## API Endpoints
-
-The following is a list of the main endpoints available in the application:
-
-### Motorcycles
-- `POST /motorcycles` - Registers a new motorcycle.
-- `GET /motorcycles` - Lists all motorcycles.
-- `GET /motorcycles?licensePlate={plate}` - Filters motorcycles by license plate.
-- `PUT /motorcycles/{id}` - Updates a motorcycle's license plate.
-- `DELETE /motorcycles/{id}` - Deletes a motorcycle.
-
-### Drivers
-- `POST /drivers` - Registers a new driver.
-- `GET /drivers` - Lists all drivers.
-- `GET /drivers/{id}` - Gets a driver by ID.
-- `POST /drivers/{id}/cnh-image` - Uploads the driver's license image for a driver.
-
-### Rentals
-- `POST /rentals` - Creates a new rental.
-- `POST /rentals/{id}/return` - Finalizes a rental and calculates the total cost.
-- `GET /rentals/plans` - Lists the available rental plans.
